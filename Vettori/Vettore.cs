@@ -13,8 +13,7 @@ namespace Vettori
 
         public Vettore(double x, double y)
         {
-            X = x;
-            Y = y;
+            X = x; Y = y;
         }
 
         public override string ToString()
@@ -32,13 +31,10 @@ namespace Vettori
         {
             double x; double y;
             string[] substr = str.Split(';');
-            if (substr.Length > 1 && double.TryParse(substr[0], out x) && double.TryParse(substr[1], out y))
-            {
+            if (substr.Length > 1 && double.TryParse(substr[0], out x) && double.TryParse(substr[1], out y)) {
                 v = new Vettore(x, y);
                 return true;
-            } 
-            else 
-            { 
+            } else { 
                 v = null;
                 return false; 
             }
@@ -79,20 +75,19 @@ namespace Vettori
 
         public static bool operator ==(Vettore v1, Vettore v2)
         {
-            if(v1.X == v2.X && v2.Y == v1.Y)
-            {
-                return true;
-            } 
-            else { return false; }
+            if (ReferenceEquals(v1, null)) { 
+                return ReferenceEquals(v2, null); 
+            }
+            else if (ReferenceEquals(v2, null)) { 
+                return false; 
+            } else { 
+                return v1.X == v2.X && v1.Y == v2.Y; 
+            }
         }
 
         public static bool operator !=(Vettore v1, Vettore v2)
         {
-            if (v1.X != v2.X || v2.Y != v1.Y)
-            {
-                return true;
-            }
-            else { return false; }
+            return !(v1 == v2);
         }
     }
 }
