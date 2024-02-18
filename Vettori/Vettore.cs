@@ -8,8 +8,8 @@ namespace Vettori
 {
     internal class Vettore
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double X { get; }
+        public double Y { get; }
 
         public Vettore(double x, double y)
         {
@@ -43,6 +43,16 @@ namespace Vettori
         public static double Modulo(Vettore v)
         {
             return Math.Sqrt(v.X * v.X + v.Y * v.Y);
+        }
+
+        public static Vettore operator +(Vettore v) 
+        { 
+            return v; 
+        }
+
+        public static Vettore operator -(Vettore v) 
+        { 
+            return new Vettore(-v.X, -v.Y); 
         }
 
         public static Vettore operator +(Vettore v1, Vettore v2)
