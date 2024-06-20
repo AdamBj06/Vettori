@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,21 @@ namespace Vettori
 
         public override string ToString()
         {
-            return string.Format("{0};{1}", X, Y);
+            return this.ToString("G", CultureInfo.CurrentCulture);
+        }
+
+        public string ToString(string format)
+        {
+            return this.ToString(format, CultureInfo.CurrentCulture);
+        }
+
+        public string ToString(string format, IFormatProvider provider)
+        {
+            if (string.IsNullOrEmpty(format)) format = "G";
+            if (provider == null) provider = CultureInfo.CurrentCulture;
+
+            return X.ToString(format, provider) + ";" + Y.ToString(format, provider);
+
         }
 
         public static Vettore Parse(string str)
@@ -40,9 +55,9 @@ namespace Vettori
             }
         }
 
-        public static double Modulo(Vettore v)
+        public double Modulo()
         {
-            return Math.Sqrt(v.X * v.X + v.Y * v.Y);
+            return Math.Sqrt(X * X + Y * Y);
         }
 
         public static Vettore operator +(Vettore v) 
@@ -81,6 +96,11 @@ namespace Vettori
         public static Vettore operator /(Vettore v1, double s)
         {
             return new Vettore(v1.X / s, v1.Y / s);
+        }
+
+        public Vettore Versore()
+        {
+            return this / Modulo();
         }
 
         public static bool operator ==(Vettore v1, Vettore v2)
